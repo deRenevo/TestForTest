@@ -1,5 +1,4 @@
-﻿
-#include "App.h"
+﻿#include "App.h"
 
 #include <iostream>
 
@@ -7,60 +6,51 @@
 
 #include <sstream>
 
-namespace
+
+Input::ParseResult Input::Parse(const std::string& line)
 {
-	struct ParseResult
+	Input::ParseResult Result;
+
+	std::istringstream Stream(line);
+
+	if (!(Stream >> Result.FirstNumber
+		>> Result.Operation
+		>> Result.SecondNumber))
 	{
-		std::string Operation = std::string();
-		double FirstNumber = 0.0;
-		double SecondNumber = 0.0;
-	};
-
-	ParseResult Parse(const std::string& line)
-	{
-		ParseResult Result;
-
-		std::istringstream Stream(line);
-
-		if (!(Stream >> Result.FirstNumber
-			>> Result.Operation
-			>> Result.SecondNumber))
-		{
-			throw std::invalid_argument("Invalid expression");
-		}
-
-		return Result;
+		throw std::invalid_argument("Invalid expression");
 	}
 
-	static double CalculateOperation(const std::string& operation, double firstNumber, double secondNumber)
+	return Result;
+}
+
+double Input::CalculateOperation(const std::string& operation, double firstNumber, double secondNumber)
+{
+	if (operation == "+")
 	{
-		if (operation == "+")
-		{
-			return Calculator::Add(firstNumber, secondNumber);
-		}
-
-		if (operation == "-")
-		{
-			return Calculator::Subtract(firstNumber, secondNumber);
-		}
-
-		if (operation == "*")
-		{
-			return Calculator::Multiply(firstNumber, secondNumber);
-		}
-
-		if (operation == "/")
-		{
-			return Calculator::Divide(firstNumber, secondNumber);
-		}
-
-		if (operation == "%")
-		{
-			return Calculator::Percent(firstNumber, secondNumber);
-		}
-
-		throw std::invalid_argument("Unknown operation");
+		return Calculator::Add(firstNumber, secondNumber);
 	}
+
+	if (operation == "-")
+	{
+		return Calculator::Subtract(firstNumber, secondNumber);
+	}
+
+	if (operation == "*")
+	{
+		return Calculator::Multiply(firstNumber, secondNumber);
+	}
+
+	if (operation == "/")
+	{
+		return Calculator::Divide(firstNumber, secondNumber);
+	}
+
+	if (operation == "%")
+	{
+		return Calculator::Percent(firstNumber, secondNumber);
+	}
+
+	throw std::invalid_argument("Unknown operation");
 }
 
 void App::Run()
@@ -72,9 +62,9 @@ void App::Run()
 
 	try
 	{
-		const ParseResult Parsed = Parse(Line);
+		const Input::ParseResult Parsed = Input::Parse(Line);
 
-		const double Result = CalculateOperation(
+		const double Result = Input::CalculateOperation(
 			Parsed.Operation,
 			Parsed.FirstNumber,
 			Parsed.SecondNumber
@@ -87,4 +77,3 @@ void App::Run()
 		std::cout << "Error: " << E.what() << "\n";
 	}
 }
-	

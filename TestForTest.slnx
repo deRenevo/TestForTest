@@ -3,5 +3,6 @@
     <Platform Name="Win32" />
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="TestForTest.vcxproj" />
+  <Project Path="Test/Test.vcxproj" Id="9207c0c5-b186-ada2-66d2-85336a5b28c7" />
+  <Project Path="TestForTest.vcxproj" Id="dcba805a-f08b-4737-aafc-2dbefd8b0d8b" />
 </Solution>

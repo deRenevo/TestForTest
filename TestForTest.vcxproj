@@ -162,6 +162,9 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Calculator.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestForTest.vcxproj.user" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
