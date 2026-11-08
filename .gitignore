@@ -3,3 +3,11 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+.vs/*
+Test/x64/*
+.idea/*
+
+/TestForTest/x64
+
+/x64
